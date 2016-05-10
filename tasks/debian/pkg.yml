@@ -11,6 +11,7 @@
     - bison
     - flex
     - libpam0g-dev
+    - libssl-dev
 - name: download monit (ansible 2.x)
   get_url:
     url: "{{ monit_download_url }}"
