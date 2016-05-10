@@ -48,3 +48,5 @@
     owner: root
     group: root
     mode: 0755
+- name: update rc.d
+  command: update-rc.d monit defaults
