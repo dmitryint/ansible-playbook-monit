@@ -41,3 +41,10 @@
   args:
     chdir: /usr/local/src/monit-{{ monit_version }}
     creates: /usr/local/bin/monit
+- name: monit init script
+  template:
+    src: monit-init.j2
+    dest: /etc/init.d/monit
+    owner: root
+    group: root
+    mode: 0755
