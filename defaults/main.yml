@@ -4,6 +4,9 @@ monit_lib_folder: /var/lib/monit
 monit_state_file: "{{ monit_lib_folder }}/state"
 monit_id_file: "{{ monit_lib_folder }}/id"
 
+monit_version: 5.17.1
+monit_download_url: https://mmonit.com/monit/dist/monit-{{ monit_version }}.tar.gz
+
 monit_services: []
 monit_service_delete_unlisted: true
 
