@@ -1,7 +1,43 @@
 ---
-- name: pkg - Install package
+- name: install dependencies
   apt:
-    name: monit
+    pkg: "{{ item }}"
     update_cache: yes
-    cache_valid_time: 3600
+    cache_valid_time: 86400
     state: present
+  with_items:
+    - libtool
+    - automake
+    - bison
+    - flex
+    - libpam0g-dev
+- name: download monit (ansible 2.x)
+  get_url:
+    url: "{{ monit_download_url }}"
+    dest: /usr/local/src/monit-{{ monit_version }}.tar.gz
+- name: extract monit tarball
+  unarchive:
+    src: /usr/local/src/monit-{{ monit_version }}.tar.gz
+    dest: /usr/local/src
+    creates: /usr/local/src/monit-{{ monit_version }}/Makefile
+    copy: no
+- name: bootstraping monit
+  command: ./bootstrap
+  args:
+    chdir: /usr/local/src/monit-{{ monit_version }}
+    creates: /usr/local/src/monit-{{ monit_version }}/configure
+- name: configure monit
+  command: ./configure
+  args:
+    chdir: /usr/local/src/monit-{{ monit_version }}
+    creates: /usr/local/src/monit-{{ monit_version }}/config.status
+- name: compile monit
+  command: make
+  args:
+    chdir: /usr/local/src/monit-{{ monit_version }}
+    creates: /usr/local/src/monit-{{ monit_version }}/monit
+- name: install monit
+  command: make install
+  args:
+    chdir: /usr/local/src/monit-{{ monit_version }}
+    creates: /usr/local/bin/monit
