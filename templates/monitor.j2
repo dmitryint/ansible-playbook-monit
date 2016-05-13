@@ -3,9 +3,6 @@
 
 {% if monit_monitor.type == 'process' or monit_monitor.type == 'process_by_name' %}
 check process {{ monit_monitor.name }}
-{% if monit_monitor.every is defined %}
-  every {{ monit_monitor.every }}
-{% endif %}
 {% if monit_monitor.type == 'process' %}
   pidfile {{ monit_monitor.target }}
 {% elif monit_monitor.type == 'process_by_name' %}
@@ -33,6 +30,10 @@ check host {{ monit_monitor.name }} with address {{ monit_monitor.target }}
 {% elif monit_monitor.type == 'filesystem' %}
 check filesystem {{ monit_monitor.name }} with path {{ monit_monitor.target }}
 {% endif -%}
+
+{% if monit_monitor.every is defined %}
+  every {{ monit_monitor.every }}
+{% endif %}
 
 {% if monit_monitor.rules is defined %}
 {% for rule in monit_monitor.rules %}
