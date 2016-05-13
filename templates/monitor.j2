@@ -36,7 +36,7 @@ check filesystem {{ monit_monitor.name }} with path {{ monit_monitor.target }}
 {% endif %}
 
 {% if monit_monitor.depends is defined %}
-depends on {{ monit_monitor.depends|join(', ') }}
+  depends on {{ monit_monitor.depends|join(', ') }}
 {% endif %}
 
 {% if monit_monitor.rules is defined %}
