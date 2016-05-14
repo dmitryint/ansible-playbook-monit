@@ -34,6 +34,8 @@ Role Variables
   * `user`: Linux username of the user starting the program. Optional.
   * `group`: Linux group of the user starting the program. Optional.
   * `rules`: List of rules to be included in this service. Optional.
+  * `every`: Service pool interval. Optional.
+  * `depends`: List of service dependencies. Optional.
 * `monit_service_delete_unlisted`: Remove existing service monitorization configurations not declared in the `services`. Defaults to `true`.
 * `monit_mail_enabled`: Enable mail alerts. Defaults to `false`.
 * `monit_mailserver_host`: Mailserver host address. Defaults to `localhost`.
