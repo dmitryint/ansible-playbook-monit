@@ -8,7 +8,7 @@ set mailserver {{ monit_mailserver_host }} port {{ monit_mailserver_port }}
   with timeout {{ monit_mailserver_timeout | default(5) }} seconds
 
 
-set alert {{ monit_alert_address }}
+set alert {{ monit_alert_address }} {% if monit_alert_include_events is defined -%}{ {{ monit_alert_include_events|join(', ') }} }{% endif %} {% if monit_alert_exclude_events is defined -%}NOT { {{ monit_alert_exclude_events|join(', ') }} }{% endif %}
 
 {% if monit_alert_mail_format is defined -%}
 set mail-format {
